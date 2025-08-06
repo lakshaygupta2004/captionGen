@@ -137,17 +137,51 @@ const EditPage: React.FC<Props> = ({ onOpenModal, isAuthenticated, setIsAuthenti
 
 
                 {/* Right Column - Captions */}
-                <aside className="w-full lg:w-1/3 bg-white rounded-xl p-6 h-[420px] overflow-y-auto">
-                    <h2 className="text-lg font-semibold mb-4">Generated Captions</h2>
+                <aside className="w-full lg:w-1/3 bg-white rounded-xl p-6 h-[420px] overflow-y-auto shadow-lg">
+                    <h2 className="text-xl font-semibold mb-4 text-gray-800">📝 Captions</h2>
+
                     {captions.length > 0 ? (
                         <ul className="space-y-4">
                             {captions.map((caption, idx) => (
                                 <li
                                     key={idx}
-                                    className="bg-gray-50 px-4 py-3 rounded-lg shadow-sm border border-gray-200 text-base text-gray-800 leading-relaxed"
+                                    className="bg-gray-100 px-4 py-3 rounded-lg border border-gray-200 shadow-sm transition-all duration-200"
                                 >
-                                    <span className="inline-block text-blue-600 font-semibold mr-2">•</span>
-                                    {caption}
+                                    {/* Editable Caption as Resizable Textarea */}
+                                    <textarea
+                                        value={caption}
+                                        onChange={(e) => {
+                                            const updated = [...captions];
+                                            updated[idx] = e.target.value;
+                                            setCaptions(updated);
+                                        }}
+                                        rows={2}
+                                        className="w-full resize-y min-h-[40px] max-h-[200px] rounded-md bg-white text-gray-800 border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-400 p-2 text-sm leading-relaxed shadow-sm transition"
+                                        placeholder="Edit your caption..."
+                                    />
+
+                                    {/* Buttons (Copy & Share) - Below Textarea */}
+                                    <div className="flex gap-4 mt-2 text-sm">
+                                        <button
+                                            onClick={() => {
+                                                navigator.clipboard.writeText(caption);
+                                            }}
+                                            className="text-blue-600 hover:text-blue-800 transition"
+                                            title="Copy to clipboard"
+                                        >
+                                            📋 Copy
+                                        </button>
+
+                                        <button
+                                            onClick={() => {
+                                                navigator.clipboard.writeText(caption);
+                                            }}
+                                            className="text-green-600 hover:text-green-800 transition"
+                                            title="Share (Copied)"
+                                        >
+                                            🔗 Share
+                                        </button>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
@@ -156,6 +190,7 @@ const EditPage: React.FC<Props> = ({ onOpenModal, isAuthenticated, setIsAuthenti
                         <p className="text-sm text-gray-500">Click "Generate Captions" to view suggestions.</p>
                     )}
                 </aside>
+
             </main>
 
             {/* Thumbnails */}
