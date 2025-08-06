@@ -31,35 +31,54 @@ const EditPage: React.FC<Props> = ({ onOpenModal, isAuthenticated, setIsAuthenti
 
 
     const handleGenerate = async () => {
-    if (!previewImage) return;
+        if (!previewImage) return;
 
-    setCaptions(["Loading..."]); // Show loading message
+        setCaptions(["Loading..."]); // Show loading message
 
-    try {
-        const blob = await (await fetch(previewImage)).blob();
-        const file = new File([blob], "image.jpg", { type: blob.type });
+        try {
+            let file: File;
 
-        const formData = new FormData();
-        formData.append("image", file);
+            if (previewImage.startsWith("data:")) {
+                // Base64 data URL - convert manually
+                const byteString = atob(previewImage.split(",")[1]);
+                const mimeString = previewImage.split(",")[0].split(":")[1].split(";")[0];
 
-        const response = await axios.post(
-            `${import.meta.env.VITE_BASE_URL}/api/post/generate`, // ✅ updated route
-            formData,
-            {
-                withCredentials: true,
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+                for (let i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+
+                const blob = new Blob([ab], { type: mimeString });
+                file = new File([blob], "uploaded-image.jpg", { type: mimeString });
+            } else {
+                // HTTP/HTTPS URL - fetch normally
+                const blob = await (await fetch(previewImage)).blob();
+                file = new File([blob], "image.jpg", { type: blob.type });
             }
-        );
 
-        const backendCaption = response.data?.post?.caption;
-        setCaptions([backendCaption || "No caption returned."]);
-    } catch (err) {
-        console.error("Error generating caption:", err);
-        setCaptions(["Failed to generate caption."]);
-    }
-};
+            const formData = new FormData();
+            formData.append("image", file);
+
+            const response = await axios.post(
+                `${import.meta.env.VITE_BASE_URL}/api/post/generate`,
+                formData,
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+
+            const backendCaption = response.data?.post?.caption;
+            setCaptions([backendCaption || "No caption returned."]);
+        } catch (err) {
+            console.error("Error generating caption:", err);
+            setCaptions(["Failed to generate caption."]);
+        }
+    };
+
 
 
 

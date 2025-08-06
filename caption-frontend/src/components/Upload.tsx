@@ -84,21 +84,21 @@ const Upload = () => {
         <p>No image? Try one of these:</p>
         <div className="flex gap-2 justify-center mt-2">
           <img
-            onClick={() => handleSampleImageClick("https://i.pinimg.com/736x/09/d2/b9/09d2b9f1e452f54a8260de445120cc76.jpg")}
+            onClick={() => handleSampleImageClick("https://ik.imagekit.io/wr6ziyjiu/img2.jpg?updatedAt=1754473053956")}
             className="h-16 w-16 object-cover rounded cursor-pointer hover:opacity-80"
-            src="https://i.pinimg.com/736x/09/d2/b9/09d2b9f1e452f54a8260de445120cc76.jpg"
+            src="https://ik.imagekit.io/wr6ziyjiu/img2.jpg?updatedAt=1754473053956"
             alt="sample"
           />
           <img
-            onClick={() => handleSampleImageClick("https://i.pinimg.com/1200x/0d/a0/05/0da0053b5ac31b8004e624a6f7fc7d49.jpg")}
+            onClick={() => handleSampleImageClick("https://ik.imagekit.io/wr6ziyjiu/img1.jpg?updatedAt=1754473053969")}
             className="h-16 w-16 object-cover rounded cursor-pointer hover:opacity-80"
-            src="https://i.pinimg.com/1200x/0d/a0/05/0da0053b5ac31b8004e624a6f7fc7d49.jpg"
+            src="https://ik.imagekit.io/wr6ziyjiu/img1.jpg?updatedAt=1754473053969"
             alt="sample"
           />
           <img
-            onClick={() => handleSampleImageClick("https://i.pinimg.com/736x/6c/25/45/6c2545513baa689a581038aedc07b6fc.jpg")}
+            onClick={() => handleSampleImageClick("https://ik.imagekit.io/wr6ziyjiu/img3.jpg?updatedAt=1754473053917")}
             className="h-16 w-16 object-cover rounded cursor-pointer hover:opacity-80"
-            src="https://i.pinimg.com/736x/6c/25/45/6c2545513baa689a581038aedc07b6fc.jpg"
+            src="https://ik.imagekit.io/wr6ziyjiu/img3.jpg?updatedAt=1754473053917"
             alt="sample"
           />
         </div>
