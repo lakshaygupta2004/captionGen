@@ -5,6 +5,7 @@ import Upload from "./components/Upload";
 import { ToastContainer } from 'react-toastify';
 import { Route, Routes } from "react-router";
 import EditPage from "./components/EditPage";
+import ErrorPage from "./components/ErrorPage";
 
 const App = () => {
   const [modalType, setModalType] = useState<'login' | 'signup' | null>(null);
@@ -37,6 +38,8 @@ const App = () => {
         <Route path="/uploads" element={<EditPage onOpenModal={setModalType}
         isAuthenticated={isAuthenticated}
         setIsAuthenticated={setIsAuthenticated}/>}/>
+
+        <Route path="*" element={<ErrorPage />}/>
       </Routes>
 
     </div>
