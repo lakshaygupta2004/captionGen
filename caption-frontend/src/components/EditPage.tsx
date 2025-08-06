@@ -140,11 +140,18 @@ const EditPage: React.FC<Props> = ({ onOpenModal, isAuthenticated, setIsAuthenti
                 <aside className="w-full lg:w-1/3 bg-white rounded-xl p-6 h-[420px] overflow-y-auto">
                     <h2 className="text-lg font-semibold mb-4">Generated Captions</h2>
                     {captions.length > 0 ? (
-                        <ul className="list-disc list-inside space-y-2 text-sm text-gray-700">
+                        <ul className="space-y-4">
                             {captions.map((caption, idx) => (
-                                <li key={idx}>{caption}</li>
+                                <li
+                                    key={idx}
+                                    className="bg-gray-50 px-4 py-3 rounded-lg shadow-sm border border-gray-200 text-base text-gray-800 leading-relaxed"
+                                >
+                                    <span className="inline-block text-blue-600 font-semibold mr-2">•</span>
+                                    {caption}
+                                </li>
                             ))}
                         </ul>
+
                     ) : (
                         <p className="text-sm text-gray-500">Click "Generate Captions" to view suggestions.</p>
                     )}

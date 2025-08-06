@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 const Upload = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -58,12 +59,27 @@ const Upload = () => {
       <h1 className="text-2xl md:text-4xl lg:text-[3rem] w-full xl:text-5xl font-semibold max-w-xl leading-tight">
         Upload an image to <br /> Generate the Caption
       </h1>
-      <div className="rounded-md hidden overflow-hidden absolute lg:h-50 lg:left-20 lg:top-80 lg:block top-70 xl:h-80 xl:left-50 rotate-350">
-        <img className="w-full h-full"  src="https://i.pinimg.com/736x/4f/8a/52/4f8a5234925d82ecc39557411806fc45.jpg" alt="" />
-      </div>
-      <div className="absolute hidden lg:h-50 lg:right-10 lg:top-30 rounded-md overflow-hidden lg:block xl:w-45 xl:h-58 xl:top-30 xl:right-45 rotate-15">
+      <motion.div initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{
+          type: "spring",
+          damping: 10,
+          stiffness: 100,
+          duration: 0.5
+        }} className="rounded-md hidden overflow-hidden absolute lg:h-50 lg:left-20 lg:top-80 lg:block top-70 xl:h-80 xl:left-50 rotate-350">
+        <img className="w-full h-full" src="https://i.pinimg.com/736x/4f/8a/52/4f8a5234925d82ecc39557411806fc45.jpg" alt="" />
+      </motion.div>
+      <motion.div initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{
+          type: "spring",
+          damping: 10,
+          stiffness: 100,
+          duration: 0.5,
+          delay: 0.2 // optional delay to stagger the animation
+        }} className="absolute hidden lg:h-50 lg:right-10 lg:top-30 rounded-md overflow-hidden lg:block xl:w-45 xl:h-58 xl:top-30 xl:right-45 rotate-15">
         <img className="w-full h-full" src="https://i.pinimg.com/736x/71/ff/c3/71ffc38a9bc53f7762ad22b5e6c78260.jpg" alt="" />
-      </div>
+      </motion.div>
       <input
         type="file"
         accept="image/*"
