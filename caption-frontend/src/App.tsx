@@ -3,6 +3,8 @@ import AuthModal from "./components/AuthModal";
 import Header from "./components/Header";
 import Upload from "./components/Upload";
 import { ToastContainer } from 'react-toastify';
+import { Route, Routes } from "react-router";
+import EditPage from "./components/EditPage";
 
 const App = () => {
   const [modalType, setModalType] = useState<'login' | 'signup' | null>(null);
@@ -10,19 +12,33 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
+
+
       <ToastContainer />
-      <Header
-        onOpenModal={setModalType}
+
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Header
+              onOpenModal={setModalType}
+              isAuthenticated={isAuthenticated}
+              setIsAuthenticated={setIsAuthenticated}
+            />
+            <Upload />
+            <AuthModal
+              type={modalType}
+              onOpenModal={setModalType}
+              onClose={() => setModalType(null)}
+              setIsAuthenticated={setIsAuthenticated}
+            />
+          </>
+        } />
+
+        <Route path="/uploads" element={<EditPage onOpenModal={setModalType}
         isAuthenticated={isAuthenticated}
-        setIsAuthenticated={setIsAuthenticated}
-      />
-      <Upload />
-      <AuthModal
-        type={modalType}
-        onOpenModal={setModalType}
-        onClose={() => setModalType(null)}
-        setIsAuthenticated={setIsAuthenticated} // <--- Pass it here
-      />
+        setIsAuthenticated={setIsAuthenticated}/>}/>
+      </Routes>
+
     </div>
   );
 };

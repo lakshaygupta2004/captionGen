@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 type Props = {
   onOpenModal: (type: 'login' | 'signup') => void;
@@ -12,11 +13,11 @@ const Header: React.FC<Props> = ({ onOpenModal, isAuthenticated, setIsAuthentica
     await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/logout`, { withCredentials: true });
     setIsAuthenticated(false);
   };
-
+const navigate = useNavigate();
   return (
     <header className="flex justify-between items-center px-6 py-4 shadow-md">
       {/* rest of your JSX */}
-       <div className="text-2xl font-bold text-gray-800">
+       <div onClick={() => navigate("/")} className="text-2xl cursor-pointer font-bold text-gray-800">
         <span className="text-blue-500">caption</span>Gen
       </div>
       <div className="space-x-4">
@@ -26,8 +27,8 @@ const Header: React.FC<Props> = ({ onOpenModal, isAuthenticated, setIsAuthentica
           </button>
         ) : (
           <>
-            <button onClick={() => onOpenModal('login')} className="text-sm">Log in</button>
-            <button onClick={() => onOpenModal('signup')} className="bg-gray-200 px-4 py-1 rounded-full text-sm">
+            <button onClick={() => onOpenModal('login')} className="text-sm cursor-pointer">Log in</button>
+            <button onClick={() => onOpenModal('signup')} className="bg-gray-200 px-4 py-1 rounded-full text-sm cursor-pointer">
               Sign up
             </button>
           </>
