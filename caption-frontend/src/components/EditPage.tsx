@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useLocation, useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import Header from "./Header";
@@ -28,13 +29,40 @@ const EditPage: React.FC<Props> = ({ onOpenModal, isAuthenticated, setIsAuthenti
         }
     }, [initialImageUrl, navigate]);
 
-    const handleGenerate = () => {
-        setCaptions([
-            "This is a caption from backend.",
-            "Another AI-generated description.",
-            "Image contains natural scenery.",
-        ]);
-    };
+
+    const handleGenerate = async () => {
+    if (!previewImage) return;
+
+    setCaptions(["Loading..."]); // Show loading message
+
+    try {
+        const blob = await (await fetch(previewImage)).blob();
+        const file = new File([blob], "image.jpg", { type: blob.type });
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        const response = await axios.post(
+            `${import.meta.env.VITE_BASE_URL}/api/post/generate`, // ✅ updated route
+            formData,
+            {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }
+        );
+
+        const backendCaption = response.data?.post?.caption;
+        setCaptions([backendCaption || "No caption returned."]);
+    } catch (err) {
+        console.error("Error generating caption:", err);
+        setCaptions(["Failed to generate caption."]);
+    }
+};
+
+
+
 
     const handleAddImageClick = () => {
         fileInputRef.current?.click();

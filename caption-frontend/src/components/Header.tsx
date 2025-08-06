@@ -9,11 +9,12 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ onOpenModal, isAuthenticated, setIsAuthenticated }) => {
+  const navigate = useNavigate();
   const handleLogout = async () => {
     await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/logout`, { withCredentials: true });
     setIsAuthenticated(false);
+    navigate("/");
   };
-const navigate = useNavigate();
   return (
     <header className="flex justify-between items-center px-6 py-4 shadow-md">
       {/* rest of your JSX */}
