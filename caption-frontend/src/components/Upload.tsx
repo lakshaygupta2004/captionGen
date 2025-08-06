@@ -1,14 +1,29 @@
+import axios from "axios";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const Upload = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  const handleButtonClick = () => {
-    fileInputRef.current?.click();
-  };
+  const handleButtonClick = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/check-auth`, {
+        withCredentials: true,
+      });
+
+      if (res.data.isAuthenticated) {
+        fileInputRef.current?.click();
+      } else {
+        toast.error("Please log in first.");
+      }
+    } catch (error) {
+      console.error("Auth check failed:", error);
+      toast.error("Something went wrong. Try again.");
+    }
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -30,7 +45,7 @@ const Upload = () => {
       <h1 className="text-2xl md:text-4xl font-semibold max-w-xl leading-tight">
         Upload an image to <br /> Generate the Caption
       </h1>
-      
+
       <input
         type="file"
         accept="image/*"

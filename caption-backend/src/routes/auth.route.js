@@ -67,7 +67,7 @@ router.get('/check-auth', (req, res) => {
   if (!token) return res.json({ isAuthenticated: false });
 
   try {
-    const decoded = jwt.verify(token, 'your_secret');
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
     return res.json({ isAuthenticated: true, user: decoded });
   } catch (err) {
     return res.json({ isAuthenticated: false });
