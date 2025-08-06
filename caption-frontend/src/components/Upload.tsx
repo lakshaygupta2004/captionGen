@@ -36,8 +36,21 @@ const Upload = () => {
     }
   };
 
-  const handleSampleImageClick = (url: string) => {
-    navigate("/uploads", { state: { imageUrl: url } }); // Navigate with sample image
+  const handleSampleImageClick = async (url: string) => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/check-auth`, {
+        withCredentials: true,
+      });
+
+      if (res.data.isAuthenticated) {
+        navigate("/uploads", { state: { imageUrl: url } });
+      } else {
+        toast.error("Please log in first.");
+      }
+    } catch (error) {
+      console.error("Auth check failed:", error);
+      toast.error("Something went wrong. Try again.");
+    }
   };
 
   return (
