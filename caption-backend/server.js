@@ -7,15 +7,16 @@ const authRouter = require("./src/routes/auth.route");
 const postRouter = require("./src/routes/posts.route");
 const cookieParser = require("cookie-parser");
 app.use(cors({
-    origin: "http://localhost:5173", // your frontend dev URL
+    origin: process.env.FRONTEND_POINT,
     credentials: true,               // allow cookies
   }));
 app.use(cookieParser());
-app.use("/auth", authRouter); 
+app.use("/auth", authRouter);
 app.use("/api/post", postRouter);
+const PORT = process.env.PORT || 5000;
 
 dbConfig();
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log("Server started");
 });
 
