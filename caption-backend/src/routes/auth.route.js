@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
 
     if(user){
         const token = jwt.sign({username}, process.env.SECRET_KEY);
-        res.cookie("token", token);
+        res.cookie("token", token, {httpOnly: true,secure: true,sameSite: "None", maxAge: 1000 * 60 * 60 * 24});
 
         res.status(201).json({message: "Registered Successfully"});
         return;
@@ -53,7 +53,7 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign({username}, process.env.SECRET_KEY, {expiresIn: "1h"});
 
-    res.cookie("token", token);
+    res.cookie("token", token, {httpOnly: true,secure: true,sameSite: "None", maxAge: 1000 * 60 * 60 * 24});
 
     res.status(201).json({message: "Login successfull"});
 
