@@ -9,6 +9,8 @@ const cookieParser = require("cookie-parser");
 app.use(cors({
     origin: 'https://caption-gen-eta.vercel.app',
     credentials: true,               // allow cookies
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
   }));
 app.options('*', cors()); // enable pre-flight requests for all routes
 app.use(cookieParser());
