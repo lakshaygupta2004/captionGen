@@ -10,7 +10,7 @@ async function uploadFile(file, filename){
     const response = await imagekit.upload({
         file: file,
         fileName: filename,
-        folder: "cohort-ai-social"
+        folder: "ai-caption"
     });
 
 
