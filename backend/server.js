@@ -7,7 +7,7 @@ const authRouter = require("./src/routes/auth.route");
 const postRouter = require("./src/routes/posts.route");
 const cookieParser = require("cookie-parser");
 app.use(cors({
-    origin: 'http://localhost:5173', // replace with your frontend URL
+    origin: 'https://caption-gen-one.vercel.app', // replace with your frontend URL
     credentials: true // allow credentials to be sent
   }));
 app.use(cookieParser());
