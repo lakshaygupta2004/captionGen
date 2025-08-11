@@ -12,7 +12,6 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
-app.options('*', cors()); // enable pre-flight requests for all routes
 app.use(cookieParser());
 app.use("/auth", authRouter);
 app.use("/api/post", postRouter);
