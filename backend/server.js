@@ -1,5 +1,4 @@
 require('dotenv').config();
-const express = require("express");
 
 const app = require("./src/app");
 const cors = require("cors");
@@ -12,8 +11,6 @@ app.use(cors({
     credentials: true,               // allow cookies
   }));
 app.options('*', cors()); // enable pre-flight requests for all routes
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use("/auth", authRouter);
 app.use("/api/post", postRouter);
