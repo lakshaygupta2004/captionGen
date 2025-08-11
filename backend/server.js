@@ -7,7 +7,7 @@ const authRouter = require("./src/routes/auth.route");
 const postRouter = require("./src/routes/posts.route");
 const cookieParser = require("cookie-parser");
 app.use(cors({
-    origin: process.env.CLIENT_URL, // allow requests from the client URL
+    origin: 'https://caption-gen-eta.vercel.app', // allow requests from the client URL
     methods: ["GET", "POST", "PUT", "DELETE"], // allowed HTTP methods
     credentials: true,               // allow cookies
   }));
