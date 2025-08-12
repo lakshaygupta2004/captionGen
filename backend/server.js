@@ -20,6 +20,9 @@ app.use(cors({
 app.use(cookieParser());
 app.use("/auth", authRouter);
 app.use("/api/post", postRouter);
+app.get('/', (req, res) => {
+  res.send('API is running');
+});
 
 const PORT = process.env.PORT || 5000;
 
