@@ -7,8 +7,14 @@ const authRouter = require("./src/routes/auth.route");
 const postRouter = require("./src/routes/posts.route");
 const cookieParser = require("cookie-parser");
 
+// Allow both local and deployed frontend origins
+const allowedOrigins = [
+  'http://localhost:5173',
+  process.env.FRONTEND_URL // e.g., https://your-frontend.vercel.app
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: allowedOrigins,
   credentials: true
 }));
 app.use(cookieParser());
@@ -19,5 +25,5 @@ const PORT = process.env.PORT || 5000;
 
 dbConfig();
 app.listen(PORT, () => {
-  console.log("Server started");
+  console.log(`Server started on port ${PORT}`);
 });
